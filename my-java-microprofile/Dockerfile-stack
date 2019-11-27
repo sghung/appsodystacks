@@ -18,7 +18,7 @@ RUN  /project/util/check_version build
 
 WORKDIR /project/
 RUN mkdir -p /mvn/repository
-RUN mvn -B -Dmaven.repo.local=/mvn/repository -s /.m2/settings.xml -N io.takari:maven:wrapper -Dmaven=$(mvn help:evaluate -Dexpression=maven.version -q -DforceStdout)
+RUN mvn -B -Dmaven.repo.local=/mvn/repository/ -s /.m2/settings.xml -N io.takari:maven:0.6.1:wrapper -Dmaven=$(mvn help:evaluate -Dexpression=maven.version -q -DforceStdout)
 RUN mvn -B -Dmaven.repo.local=/mvn/repository install dependency:go-offline -DskipTests -s /.m2/settings.xml
 RUN mvn -Dmaven.repo.local=/mvn/repository install dependency:go-offline -DskipTests -f pom-dev.xml -s /.m2/settings.xml
 

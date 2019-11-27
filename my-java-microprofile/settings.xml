@@ -1,5 +1,4 @@
 <settings>
-  <mirrors>
    <mirrors>
     <mirror>
       <!--This sends everything else to /public -->

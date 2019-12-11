@@ -25,9 +25,10 @@ ENV APPSODY_TEST_KILL=false
 COPY ./LICENSE /licenses/
 COPY ./project /project
 COPY ./config /config
+COPY ./project/sampleCredentials /project/.npmrc
 WORKDIR /project
-COPY project/.npmrc ./.
 RUN npm install
+RUN rm -f /project/.npmrc
 
 ENV PORT=3000
 ENV NODE_PATH=/project/user-app/node_modules

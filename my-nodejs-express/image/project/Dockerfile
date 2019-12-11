@@ -10,14 +10,17 @@ RUN apt-get update \
 # Install stack dependencies
 WORKDIR /project
 COPY ./package*.json ./
+COPY ./sampleCredentials /project/.npmrc
 RUN npm install --production
+RUN rm -f /project/.npmrc
 
 # Install user-app dependencies
 WORKDIR /project/user-app
 COPY ./user-app/package*.json ./
 
-COPY ./user-app/.npmrc ./
+COPY ./sampleCredentials /project/user-app/.npmrc
 RUN npm install --production
+RUN rm -f /project/user-app/.npmrc
 WORKDIR /project/user-app/node_modules
 
 # Copy the dependencies into a slim Node docker image

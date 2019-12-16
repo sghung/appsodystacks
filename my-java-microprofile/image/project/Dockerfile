@@ -5,6 +5,7 @@ RUN apt-get update && \
     apt-get install -y maven unzip wget xmlstarlet
 
 # Copy and build the dev.appsody:java-microprofile parent pom
+COPY ./settings.xml /.m2/settings.xml
 COPY ./pom.xml /project/pom.xml
 RUN cd /project && mvn -B install dependency:go-offline -DskipTests -s /.m2/settings.xml
 
@@ -33,6 +34,9 @@ RUN cd /project/user-app/target && \
 FROM open-liberty:kernel-java8-openj9
 
 COPY --chown=1001:0 --from=0 /config/ /config/
+
+# Remove settings.xml fof security reasons
+RUN rm -rf /.m2/settings.xml
 
 EXPOSE 9080
 EXPOSE 9443
